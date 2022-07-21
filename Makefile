@@ -159,9 +159,16 @@ mac32: $(SQLITE_UNPACKED) jni-header
 sparcv9:
 	$(MAKE) native OS_NAME=SunOS OS_ARCH=sparcv9
 
+s390x:
+	$(MAKE) native OS_NAME=Linux OS_ARCH=s390x
+
 package: native-all
 	rm -rf target/dependency-maven-plugin-markers
 	$(MVN) package
+
+package_s390x: s390x
+	rm -rf target/dependency-maven-plugin-markers
+	$(MVN) -DskipTests package
 
 clean-native:
 	rm -rf $(SQLITE_OUT)
