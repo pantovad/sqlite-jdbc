@@ -207,9 +207,16 @@ mac64-signed: mac64
 mac-arm64-signed: mac-arm64
 	$(CODESIGN) src/main/resources/org/sqlite/native/Mac/aarch64/libsqlitejdbc.jnilib
 
+s390x:
+	$(MAKE) native OS_NAME=Linux OS_ARCH=s390x
+
 package: native-all
 	rm -rf target/dependency-maven-plugin-markers
 	$(MVN) package
+
+package_s390x: s390x
+	rm -rf target/dependency-maven-plugin-markers
+	$(MVN) -DskipTests package
 
 clean-native:
 	rm -rf $(SQLITE_OUT)
